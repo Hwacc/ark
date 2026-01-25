@@ -4,7 +4,8 @@ import type { PolymorphicProps } from '../factory'
 
 export interface DialogBackdropBaseProps extends PolymorphicProps {}
 export interface DialogBackdropProps
-  extends DialogBackdropBaseProps,
+  extends
+    DialogBackdropBaseProps,
     /**
      * @vue-ignore
      */
@@ -13,26 +14,29 @@ export interface DialogBackdropProps
 
 <script setup lang="ts">
 import { mergeProps } from '@zag-js/vue'
+import { omit } from '@zag-js/utils'
 import { computed } from 'vue'
-import { useRenderStrategyProps } from '../../utils/use-render-strategy'
 import { useForwardExpose } from '../../utils/use-forward-expose'
-import { usePresence } from '../presence'
+import { usePresenceContext } from '../presence'
 import { ark } from '../factory'
 import { useDialogContext } from './use-dialog-context'
 
 defineProps<DialogBackdropProps>()
 
 const dialog = useDialogContext()
-const renderStrategy = useRenderStrategyProps()
+const presence = usePresenceContext()
 
-const presence = usePresence(
-  computed(() => ({
-    ...renderStrategy.value,
-    present: dialog.value.open,
-  })),
+const mergedProps = computed(() =>
+  mergeProps(
+    dialog.value.getBackdropProps(),
+    /*
+     * Here we omit the ref because there should be only one ref to control the global presence state
+     * and that is DialogContent
+     * @see DialogContent.vue
+     */
+    omit(presence.value.presenceProps, ['ref']),
+  ),
 )
-
-const mergedProps = computed(() => mergeProps(dialog.value.getBackdropProps(), presence.value.presenceProps))
 
 useForwardExpose()
 </script>
