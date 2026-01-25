@@ -4,6 +4,11 @@
   <img alt="Downloads" src="https://img.shields.io/npm/dt/@ark-ui/vue?style=for-the-badge" />
 </p>
 
+<div style="background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 12px; margin: 16px 0;">
+  ⚠️ <strong>Warning:</strong>This repository is a personal fork based on ArkUI. Pull requests will be submitted to the official ArkUI repository and await review and approval. Please refer to the official repository as the authoritative source and use it whenever possible.
+</div>
+
+
 # Welcome to Ark UI
 
 Ark UI is a headless, open-source UI library with over 45+ components designed for building reusable, scalable Design
