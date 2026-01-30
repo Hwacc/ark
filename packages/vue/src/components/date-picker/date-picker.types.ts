@@ -184,6 +184,10 @@ export interface RootProps {
 
 export type RootEmits = {
   /**
+   * Function called when the animation ends in the closed state
+   */
+  exitComplete: []
+  /**
    * Function called when the focused date changes.
    */
   focusChange: [details: datePicker.FocusChangeDetails]
@@ -199,6 +203,10 @@ export type RootEmits = {
    * Function called when the view changes.
    */
   viewChange: [details: datePicker.ViewChangeDetails]
+  /**
+   * Function called when the visible date range changes.
+   */
+  visibleRangeChange: [details: datePicker.VisibleRangeChangeDetails]
   /**
    * The callback fired when the model value changes.
    */

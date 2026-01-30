@@ -1,10 +1,11 @@
 <script lang="ts">
-import { type HTMLAttributes, computed } from 'vue'
-import { type PolymorphicProps, ark } from '../factory'
+import type { HTMLAttributes } from 'vue'
+import type { PolymorphicProps } from '../factory'
 
 export interface PopoverPositionerBaseProps extends PolymorphicProps {}
 export interface PopoverPositionerProps
-  extends PopoverPositionerBaseProps,
+  extends
+    PopoverPositionerBaseProps,
     /**
      * @vue-ignore
      */
@@ -12,23 +13,15 @@ export interface PopoverPositionerProps
 </script>
 
 <script setup lang="ts">
-import { useRenderStrategyProps } from '../../utils/use-render-strategy'
 import { useForwardExpose } from '../../utils/use-forward-expose'
-import { PresenceProvider, usePresence } from '../presence'
+import { ark } from '../factory'
+import { usePresenceContext } from '../presence'
 import { usePopoverContext } from './use-popover-context'
 
 defineProps<PopoverPositionerProps>()
 
 const popover = usePopoverContext()
-const renderStrategy = useRenderStrategyProps()
-
-const presence = usePresence(
-  computed(() => ({
-    ...renderStrategy.value,
-    present: popover.value.open,
-  })),
-)
-PresenceProvider(presence)
+const presence = usePresenceContext()
 
 useForwardExpose()
 </script>

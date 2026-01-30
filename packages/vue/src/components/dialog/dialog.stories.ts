@@ -2,16 +2,17 @@ import type { Meta } from '@storybook/vue3-vite'
 
 import AlertDialogExample from './examples/alert-dialog.vue'
 import BasicExample from './examples/basic.vue'
-import CloseOnEscapeExample from './examples/close-on-escape.vue'
-import CloseOnInteractOutsideExample from './examples/close-on-interact-outside.vue'
 import ConfirmationExample from './examples/confirmation.vue'
+import ContextExample from './examples/context.vue'
 import ControlledExample from './examples/controlled.vue'
 import FinalFocusExample from './examples/final-focus.vue'
 import InitialFocusExample from './examples/initial-focus.vue'
+import InsideScrollExample from './examples/inside-scroll.vue'
 import LazyMountExample from './examples/lazy-mount.vue'
 import NestedExample from './examples/nested.vue'
 import NonModalExample from './examples/non-modal.vue'
-import RenderFnExample from './examples/render-fn.vue'
+import OpenFromMenuExample from './examples/open-from-menu.vue'
+import OutsideScrollExample from './examples/outside-scroll.vue'
 import RootProviderExample from './examples/root-provider.vue'
 import OnExitCompleteExample from './examples/on-exit-complete.vue'
 
@@ -35,23 +36,16 @@ export const Basic = {
   }),
 }
 
-export const CloseOnEscape = {
-  render: () => ({
-    components: { Component: CloseOnEscapeExample },
-    template: '<Component />',
-  }),
-}
-
-export const CloseOnInteractOutside = {
-  render: () => ({
-    components: { Component: CloseOnInteractOutsideExample },
-    template: '<Component />',
-  }),
-}
-
 export const Confirmation = {
   render: () => ({
     components: { Component: ConfirmationExample },
+    template: '<Component />',
+  }),
+}
+
+export const Context = {
+  render: () => ({
+    components: { Component: ContextExample },
     template: '<Component />',
   }),
 }
@@ -77,6 +71,13 @@ export const InitialFocus = {
   }),
 }
 
+export const InsideScroll = {
+  render: () => ({
+    components: { Component: InsideScrollExample },
+    template: '<Component />',
+  }),
+}
+
 export const LazyMount = {
   render: () => ({
     components: { Component: LazyMountExample },
@@ -98,9 +99,16 @@ export const NonModal = {
   }),
 }
 
-export const RenderFn = {
+export const OpenFromMenu = {
   render: () => ({
-    components: { Component: RenderFnExample },
+    components: { Component: OpenFromMenuExample },
+    template: '<Component />',
+  }),
+}
+
+export const OutsideScroll = {
+  render: () => ({
+    components: { Component: OutsideScrollExample },
     template: '<Component />',
   }),
 }

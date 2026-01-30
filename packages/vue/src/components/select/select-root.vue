@@ -7,11 +7,10 @@ import type { PolymorphicProps } from '../factory'
 import type { RootEmits, RootProps } from './select.types'
 
 export interface SelectRootBaseProps<T extends CollectionItem>
-  extends RootProps<T>,
-    RenderStrategyProps,
-    PolymorphicProps {}
+  extends RootProps<T>, RenderStrategyProps, PolymorphicProps {}
 export interface SelectRootProps<T extends CollectionItem>
-  extends SelectRootBaseProps<T>,
+  extends
+    SelectRootBaseProps<T>,
     /**
      * @vue-ignore
      */
@@ -29,6 +28,7 @@ import { computed } from 'vue'
 import { RenderStrategyPropsProvider } from '../../utils/use-render-strategy'
 import { useForwardExpose } from '../../utils/use-forward-expose'
 import { ark } from '../factory'
+import { PresenceProvider, usePresence } from '../presence'
 import { useSelect } from './use-select'
 import { SelectProvider } from './use-select-context'
 
@@ -49,7 +49,18 @@ const props = withDefaults(defineProps<SelectRootProps<T>>(), {
 const emits = defineEmits<RootEmits<T>>()
 
 const select = useSelect(props, emits)
+
+const presence = usePresence(
+  computed(() => ({
+    present: select.value.open,
+    lazyMount: props.lazyMount,
+    unmountOnExit: props.unmountOnExit,
+  })),
+  emits,
+)
+
 SelectProvider(select)
+PresenceProvider(presence)
 
 RenderStrategyPropsProvider(
   computed(() => ({

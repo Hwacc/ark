@@ -1,7 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import user from '@testing-library/user-event'
 import { axe } from 'vitest-axe'
-import { WithField } from '../examples/with-field'
 import { ComponentUnderTest } from './basic'
 import { ControlledComponentUnderTest } from './controlled'
 
@@ -51,6 +50,30 @@ describe('Checkbox', () => {
   })
 })
 
+import { Checkbox } from '@ark-ui/react/checkbox'
+import { Field } from '@ark-ui/react/field'
+import { CheckIcon, MinusIcon } from 'lucide-react'
+import styles from 'styles/checkbox.module.css'
+
+const WithField = (props: Field.RootProps) => (
+  <Field.Root {...props}>
+    <Checkbox.Root className={styles.Root}>
+      <Checkbox.Control className={styles.Control}>
+        <Checkbox.Indicator className={styles.Indicator}>
+          <CheckIcon />
+        </Checkbox.Indicator>
+        <Checkbox.Indicator className={styles.Indicator} indeterminate>
+          <MinusIcon />
+        </Checkbox.Indicator>
+      </Checkbox.Control>
+      <Checkbox.Label className={styles.Label}>Label</Checkbox.Label>
+      <Checkbox.HiddenInput />
+    </Checkbox.Root>
+    <Field.HelperText>Additional Info</Field.HelperText>
+    <Field.ErrorText>Error Info</Field.ErrorText>
+  </Field.Root>
+)
+
 describe('Checkbox / Field', () => {
   it('should set checkbox as required', async () => {
     render(<WithField required />)
@@ -86,5 +109,33 @@ describe('Checkbox / Field', () => {
   it('should not display error text when no error is present', async () => {
     render(<WithField />)
     expect(screen.queryByText('Error Info')).not.toBeInTheDocument()
+  })
+})
+
+const WithGroup = () => (
+  <Checkbox.Group>
+    <Checkbox.Root value="one">
+      <Checkbox.Label>One</Checkbox.Label>
+      <Checkbox.HiddenInput />
+    </Checkbox.Root>
+    <Checkbox.Root value="two" disabled>
+      <Checkbox.Label>Two</Checkbox.Label>
+      <Checkbox.HiddenInput />
+    </Checkbox.Root>
+    <Checkbox.Root value="three">
+      <Checkbox.Label>Three</Checkbox.Label>
+      <Checkbox.HiddenInput />
+    </Checkbox.Root>
+  </Checkbox.Group>
+)
+
+describe('Checkbox / Group', () => {
+  it('should allow individual checkbox to be disabled', async () => {
+    render(<WithGroup />)
+
+    const checkboxes = screen.getAllByRole('checkbox')
+    expect(checkboxes[0]).not.toBeDisabled()
+    expect(checkboxes[1]).toBeDisabled()
+    expect(checkboxes[2]).not.toBeDisabled()
   })
 })

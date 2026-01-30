@@ -6,13 +6,42 @@ description: All notable changes will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- **Date Picker**: Added `ValueText` component for displaying selected date value(s) with placeholder support and
+  snippet for custom formatting
+- **Scroll Area**: Added overflow CSS variables (`--scroll-area-overflow-{x,y}-{start,end}`) for scroll fade effects
+- **Slider**: Added `thumbCollisionBehavior` prop (`none`, `push`, `swap`)
+- **Steps**: Added `isStepValid`, `isStepSkippable`, and `onStepInvalid` for validation support
+- **Tags Input**: Added `placeholder` prop (shown only when no tags exist)
+- **Tooltip**: Added `data-instant` attribute for instant animations
+
+### Fixed
+
+- **Auto Resize**: Fixed change event not emitted after clearing controlled textarea
+- **Date Picker**: Fixed `visibleRangeText` to show correct format based on current view (year/month/day)
+- **Dismissable**: Fixed issue where closing a nested dialog/popover would incorrectly close its parent layers
+- **Menu**: Fixed glitchy submenu behavior when hovering between trigger items quickly
+- **Checkbox**: Fixed individual checkbox props being overridden by `CheckboxGroup`
+- **Factory**: Fixed textarea hydration marker issue
+- **Collection, Tree View**: Fixed initial focus when first node/branch is disabled
+- **Color Picker**: Fixed color not updating when selecting black shades in controlled mode
+- **Floating Panel**: Fixed double-click on minimized title bar incorrectly maximizing
+- **Image Cropper**: Fixed `reset()` destroying cropper, prop changes not updating instantly, and panning bounds
+- **Number Input**: Fixed cursor positioning after clicking label or scrubbing
+- **Pagination**: Fixed next trigger not disabled when `count` is `0`
+- **Slider**: Fixed thumb drag from edge in `thumbAlignment="contain"` mode
+- **Switch**: Fixed `api.toggleChecked()` not working
+- **Toast**: Fixed toasts created before state machine connects not showing
+- **Tour**: Fixed janky scroll between steps
+
 ## [5.15.0] - 2025-12-10
 
 ### Added
 
 - **Date Picker**: Added `required` and `invalid` props
 - **Number Input**: Added `onValueCommit` callback that fires when the input loses focus or Enter is pressed
-- **Pagination**: 
+- **Pagination**:
   - Added `FirstTrigger` and `LastTrigger` components for navigating to first/last page
   - Added `boundaryCount` parameter for controlling boundary pages (start/end)
   - Implemented balanced pagination algorithm for consistent UI with max 7 elements
@@ -21,15 +50,18 @@ description: All notable changes will be documented in this file.
 
 ### Fixed
 
-- **Accordion, Menu**: Fixed issue where querying elements by `aria-controls` attribute could fail when lazy mounting the content
-- **Color Picker**: Added `role="dialog"` to content and `aria-haspopup="dialog"` to trigger when not inline for better accessibility
+- **Accordion, Menu**: Fixed issue where querying elements by `aria-controls` attribute could fail when lazy mounting
+  the content
+- **Color Picker**: Added `role="dialog"` to content and `aria-haspopup="dialog"` to trigger when not inline for better
+  accessibility
 - **Date Picker**: Fixed issue where date picker input does not update format when locale changes
 - **Floating Panel**:
   - Fixed `dir` prop now properly delegated to all panel parts
   - Fixed double-click behavior improvements and to check `event.defaultPrevented` for custom behavior
-- **Listbox**: 
-  - Fixed issue where `data-highlighted` wasn't applied to the first item when using `autoHighlight` with input filtering
-- **Number Input**: 
+- **Listbox**:
+  - Fixed issue where `data-highlighted` wasn't applied to the first item when using `autoHighlight` with input
+    filtering
+- **Number Input**:
   - Fixed issue where input element doesn't sync when `formatOptions` changes dynamically
   - Ensured cursor position is preserved when `Enter` key is pressed and formatting is triggered
   - Fixed cursor jumping to start when value is changed externally via props while user is typing

@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@solidjs/testing-library'
 import user from '@testing-library/user-event'
-import { WithField } from '../examples/with-field'
+import { Checkbox } from '../'
+import { CheckboxWithField } from './field'
 import { ComponentUnderTest } from './basic'
 import { ControlledComponentUnderTest } from './controlled'
 
@@ -40,38 +41,66 @@ describe('Checkbox', () => {
 
 describe('Checkbox / Field', () => {
   it('should set checkbox as required', async () => {
-    render(() => <WithField required />)
+    render(() => <CheckboxWithField required />)
     expect(screen.getByRole('checkbox', { name: /label/i })).toBeRequired()
   })
 
   it('should set input as disabled', async () => {
-    render(() => <WithField disabled />)
+    render(() => <CheckboxWithField disabled />)
     expect(screen.getByRole('checkbox', { name: /label/i })).toBeDisabled()
   })
 
   it('should set input as readonly', async () => {
-    render(() => <WithField readOnly />)
+    render(() => <CheckboxWithField readOnly />)
     expect(screen.getByText('Label')).toHaveAttribute('data-readonly')
   })
 
   it('should display helper text', async () => {
-    render(() => <WithField />)
+    render(() => <CheckboxWithField />)
     expect(screen.getByText('Additional Info')).toBeInTheDocument()
   })
 
   it('should display error text when error is present', async () => {
-    render(() => <WithField invalid />)
+    render(() => <CheckboxWithField invalid />)
     expect(screen.getByText('Error Info')).toBeInTheDocument()
   })
 
   it('should focus on input when label is clicked', async () => {
-    render(() => <WithField />)
+    render(() => <CheckboxWithField />)
     await user.click(screen.getByText(/label/i))
     expect(screen.getByRole('checkbox', { name: /label/i })).toHaveFocus()
   })
 
   it('should not display error text when no error is present', async () => {
-    render(() => <WithField />)
+    render(() => <CheckboxWithField />)
     expect(screen.queryByText('Error Info')).not.toBeInTheDocument()
+  })
+})
+
+const WithGroup = () => (
+  <Checkbox.Group>
+    <Checkbox.Root value="one">
+      <Checkbox.Label>One</Checkbox.Label>
+      <Checkbox.HiddenInput />
+    </Checkbox.Root>
+    <Checkbox.Root value="two" disabled>
+      <Checkbox.Label>Two</Checkbox.Label>
+      <Checkbox.HiddenInput />
+    </Checkbox.Root>
+    <Checkbox.Root value="three">
+      <Checkbox.Label>Three</Checkbox.Label>
+      <Checkbox.HiddenInput />
+    </Checkbox.Root>
+  </Checkbox.Group>
+)
+
+describe('Checkbox / Group', () => {
+  it('should allow individual checkbox to be disabled', async () => {
+    render(() => <WithGroup />)
+
+    const checkboxes = screen.getAllByRole('checkbox')
+    expect(checkboxes[0]).not.toBeDisabled()
+    expect(checkboxes[1]).toBeDisabled()
+    expect(checkboxes[2]).not.toBeDisabled()
   })
 })
