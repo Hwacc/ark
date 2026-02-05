@@ -1,7 +1,7 @@
 {
   "name": "@hwacc/ark-ui-vue",
   "type": "module",
-  "version": "5.31.0-leading.1",
+  "version": "5.31.0-leading.2",
   "description": "A collection of unstyled, accessible UI components for Vue, utilizing state machines for seamless interaction.",
   "keywords": [
     "accordion",
