@@ -1,5 +1,11 @@
 # @ark-ui/vue
 
+## [5.37.3] - 2026-06-25
+
+### Fixed
+
+- Fixed Field input, textarea, and select to render outside `Field.Root` without crashing.
+
 ## [5.37.2] - 2026-06-08
 
 ### Fixed
