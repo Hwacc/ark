@@ -1,5 +1,11 @@
 # @ark-ui/react
 
+## [5.37.3] - 2026-06-25
+
+### Fixed
+
+- Fixed composed refs to keep stable callback refs attached across re-renders.
+
 ## [5.37.2] - 2026-06-08
 
 ### Fixed
